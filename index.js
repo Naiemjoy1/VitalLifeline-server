@@ -27,6 +27,13 @@ async function run() {
     // collection create
     const userCollection = client.db("bloodHeroDB").collection("users");
 
+    // users api
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const result = await userCollection.insertOne(user);
+      res.send(result);
+    });
+
     app.get("/users", async (req, res) => {
       const result = await userCollection.find().toArray();
       res.send(result);
